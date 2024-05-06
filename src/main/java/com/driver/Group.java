@@ -11,7 +11,6 @@ public class Group {
         this.users = users;
     }
 
-    // Getters and setters
     public String getName() {
         return name;
     }

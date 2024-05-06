@@ -1,51 +1,42 @@
 package com.driver;
-import java.util.*;
 
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("whatsapp")
 public class WhatsappController {
-    private WhatsappService whatsappService = new WhatsappService();
 
-    @PostMapping("/add-users")
+    WhatsappService whatsappService = new WhatsappService();
+
+    @PostMapping("/add-user")
     public String createUser(@RequestParam String name, @RequestParam String mobile) throws Exception {
         return whatsappService.createUser(name, mobile);
     }
 
-    @PostMapping("/add-groups")
+    @PostMapping("/add-group")
     public Group createGroup(@RequestBody List<User> users) {
         return whatsappService.createGroup(users);
     }
 
-    @PostMapping("/add-messages")
+    @PostMapping("/add-message")
     public int createMessage(@RequestParam String content) {
         return whatsappService.createMessage(content);
     }
 
-    @PutMapping("/send-messages")
-    public int sendMessage(@RequestBody Message message, @RequestBody User sender, @RequestBody Group group) throws Exception {
-        return whatsappService.sendMessage(message, sender, group);
-    }
+//    @PutMapping("/send-message")
+//    public int sendMessage(@RequestBody Message message, @RequestParam String senderMobile, @RequestParam String groupName) throws Exception {
+//        User sender = whatsappService.findUserByMobile(senderMobile);
+//        Group group = whatsappService.findGroupByName(groupName);
+//        return whatsappService.sendMessage(message, sender, group);
+//    }
 
-    @PutMapping("/change-admins")
-    public String changeAdmin(@RequestBody User approver, @RequestBody User user, @RequestBody Group group) throws Exception {
+    @PutMapping("/change-admin")
+    public String changeAdmin(@RequestParam String approverMobile, @RequestParam String userMobile, @RequestParam String groupName) throws Exception {
+        User approver = whatsappService.findUserByMobile(approverMobile);
+        User user = whatsappService.findUserByMobile(userMobile);
+        Group group = whatsappService.findGroupByName(groupName);
         return whatsappService.changeAdmin(approver, user, group);
-    }
-
-    // Implement other endpoints as needed based on requirements
-
-    // Bonus endpoint (non-scorable)
-    @DeleteMapping("/remove-userss")
-    public int removeUser(@RequestBody User user) throws Exception {
-        // Implement logic to remove user from group
-        throw new UnsupportedOperationException("Not implemented");
-    }
-
-    // Bonus endpoint (non-scorable)
-    @GetMapping("/find-messagess")
-    public String findMessage(@RequestParam Date start, @RequestParam Date end, @RequestParam int K) throws Exception {
-        // Implement logic to find messages within a given date range
-        throw new UnsupportedOperationException("Not implemented");
     }
 }

@@ -9,7 +9,6 @@ public class User {
         this.mobile = mobile;
     }
 
-    // Getters and setters
     public String getName() {
         return name;
     }

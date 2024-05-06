@@ -13,7 +13,6 @@ public class Message {
         this.timestamp = timestamp;
     }
 
-    // Getters and setters
     public int getId() {
         return id;
     }

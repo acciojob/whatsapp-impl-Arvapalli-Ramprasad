@@ -1,73 +1,63 @@
 package com.driver;
 
-import org.springframework.stereotype.Repository;
-
 import java.util.*;
-@Repository
+
 public class WhatsappRepository {
-    private Map<String, User> userMap = new HashMap<>();
-    private List<Group> groups = new ArrayList<>();
-    private List<Message> messages = new ArrayList<>();
-    private int groupIdCounter = 1;
-    private int messageIdCounter = 1;
+    private HashMap<String, User> users = new HashMap<>();
+    private HashMap<String, Group> groups = new HashMap<>();
+    private HashMap<Integer, Message> messages = new HashMap<>();
+    private int customGroupCount = 0;
 
-    public String createUser(String name, String mobile) throws Exception {
-        if (userMap.containsKey(mobile)) {
-            throw new Exception("User already exists with mobile number: " + mobile);
-        }
-
+    public String createUser(String name, String mobile) {
         User user = new User(name, mobile);
-        userMap.put(mobile, user);
+        users.put(mobile, user);
         return "SUCCESS";
     }
 
-    public Group createGroup(List<User> users) {
-        String groupName;
-        if (users.size() == 2) {
-            groupName = users.get(1).getName(); // Personal chat
-        } else {
-            groupName = "Group " + groupIdCounter++;
-        }
+    public boolean isUserExists(String mobile) {
+        return users.containsKey(mobile);
+    }
 
+    public User getUserByMobile(String mobile) {
+        return users.get(mobile);
+    }
+
+    public Group createGroup(String groupName, List<User> users) {
         Group group = new Group(groupName, users);
-        groups.add(group);
+        groups.put(groupName, group);
         return group;
     }
 
+    public Group getGroupByName(String groupName) {
+        for (Group group : groups.values()) {
+            if (group.getName().equals(groupName)) {
+                return group;
+            }
+        }
+        return null;
+    }
+
     public int createMessage(String content) {
-        Message message = new Message(messageIdCounter++, content, new Date());
-        messages.add(message);
-        return message.getId();
+        int messageId = messages.size() + 1; // Generate message ID
+        Message message = new Message(messageId, content, new Date());
+        messages.put(messageId, message);
+        return messageId;
     }
 
-    public int sendMessage(Message message, User sender, Group group) throws Exception {
-        if (!groups.contains(group)) {
-            throw new Exception("Group does not exist");
-        }
-
-        if (!group.getUsers().contains(sender)) {
-            throw new Exception("You are not allowed to send message");
-        }
-
-        messages.add(message);
-        return messages.size(); // Return number of messages in the group
+    public boolean isGroupExists(Group group) {
+        return groups.containsValue(group);
     }
 
-    public String changeAdmin(User approver, User user, Group group) throws Exception {
-        if (!groups.contains(group)) {
-            throw new Exception("Group does not exist");
-        }
-
-        if (!group.getUsers().contains(approver)) {
-            throw new Exception("Approver does not have rights");
-        }
-
-        if (!group.getUsers().contains(user)) {
-            throw new Exception("User is not a participant");
-        }
-
-        // Implement admin change logic (for example, update adminMap)
-        return "SUCCESS";
+    public User getGroupAdmin(Group group) {
+        // Retrieve admin logic here
+        return null;
     }
 
+    public void changeAdmin(User newAdmin, Group group) {
+        // Change group admin logic here
+    }
+
+    public int getCustomGroupCount() {
+        return customGroupCount;
+    }
 }
