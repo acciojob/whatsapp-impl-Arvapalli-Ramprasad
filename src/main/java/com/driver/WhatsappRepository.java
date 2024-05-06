@@ -2,62 +2,42 @@ package com.driver;
 
 import java.util.*;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 public class WhatsappRepository {
-    private HashMap<String, User> users = new HashMap<>();
-    private HashMap<String, Group> groups = new HashMap<>();
-    private HashMap<Integer, Message> messages = new HashMap<>();
-    private int customGroupCount = 0;
 
-    public String createUser(String name, String mobile) {
-        User user = new User(name, mobile);
-        users.put(mobile, user);
-        return "SUCCESS";
+    //Assume that each user belongs to at most one group
+    //You can use the below mentioned hashmaps or delete these and create your own.
+    private HashMap<Group, List<User>> groupUserMap;
+    private HashMap<Group, List<Message>> groupMessageMap;
+    private HashMap<Message, User> senderMap;
+    private HashMap<Group, User> adminMap;
+    private HashSet<String> userMobile;
+    private int customGroupCount;
+    private int messageId;
+
+    public WhatsappRepository(){
+        this.groupMessageMap = new HashMap<Group, List<Message>>();
+        this.groupUserMap = new HashMap<Group, List<User>>();
+        this.senderMap = new HashMap<Message, User>();
+        this.adminMap = new HashMap<Group, User>();
+        this.userMobile = new HashSet<>();
+        this.customGroupCount = 0;
+        this.messageId = 0;
     }
-
-    public boolean isUserExists(String mobile) {
-        return users.containsKey(mobile);
-    }
-
-    public User getUserByMobile(String mobile) {
-        return users.get(mobile);
-    }
-
-    public Group createGroup(String groupName, List<User> users) {
-        Group group = new Group(groupName, users);
-        groups.put(groupName, group);
-        return group;
-    }
-
-    public Group getGroupByName(String groupName) {
-        for (Group group : groups.values()) {
-            if (group.getName().equals(groupName)) {
-                return group;
-            }
+    public String createUser(String name, String mobile) throws Exception {
+        if(userMobile.contains(mobile)) {
+            throw new Exception("User already exists");
         }
-        return null;
-    }
 
-    public int createMessage(String content) {
-        int messageId = messages.size() + 1; // Generate message ID
-        Message message = new Message(messageId, content, new Date());
-        messages.put(messageId, message);
-        return messageId;
-    }
-
-    public boolean isGroupExists(Group group) {
-        return groups.containsValue(group);
-    }
-
-    public User getGroupAdmin(Group group) {
-        // Retrieve admin logic here
-        return null;
-    }
-
-    public void changeAdmin(User newAdmin, Group group) {
-        // Change group admin logic here
-    }
-
-    public int getCustomGroupCount() {
-        return customGroupCount;
+        User user = new User(name, mobile);
+        userMobile.add(mobile); // Assuming mobile numbers are unique
+        // Add the user to the database or storage
+        // For simplicity, we assume adding to a hashmap
+        // You might want to persist this to a database
+        // or another permanent storage
+        // e.g., userMap.put(user.getId(), user);
+        return "SUCCESS";
     }
 }
