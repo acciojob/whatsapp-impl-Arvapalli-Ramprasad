@@ -118,14 +118,13 @@ public class WhatsappRepository {
             throw new IllegalArgumentException("At least two users are required to create a group");
         }
         Group group = new Group(users);
+        User admin = users.get(0);
         if (users.size()==2) {
-            User admin = users.get(0);
             group.setAdmin(admin);
             group.setName(users.get(1).getName());
         } else {
             customGroupCount++;
             group.setName("Group " + customGroupCount);
-            User admin = users.get(0);
             group.setAdmin(admin);
 
         }
