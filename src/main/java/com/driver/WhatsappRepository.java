@@ -109,6 +109,14 @@ public class WhatsappRepository {
     }
 
     public Group createGroup(List<User> users) {
+        if (users == null || users.isEmpty()) {
+            throw new IllegalArgumentException("User list cannot be null or empty");
+        }
+
+        // Validate minimum number of users required
+        if (users.size() < 2) {
+            throw new IllegalArgumentException("At least two users are required to create a group");
+        }
         Group group = new Group(users);
         if (users.size()==2) {
             User admin = users.get(0);
@@ -134,7 +142,7 @@ public class WhatsappRepository {
         if (!groupUserMap.containsValue(group)) {
             throw new Exception("Group does not exist");
         }
-        if (!group.getName().contains((CharSequence) sender)) {
+        if (!group.getName().contains(sender.getName())){
             throw new Exception("You are not allowed to send message");
         }
         List<Message> messages = groupMessageMap.getOrDefault(group, new ArrayList<>());
