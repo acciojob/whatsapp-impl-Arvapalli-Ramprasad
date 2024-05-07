@@ -111,12 +111,15 @@ public class WhatsappRepository {
     public Group createGroup(List<User> users) {
         Group group = new Group(users);
         if (users.size()==2) {
-            group.setAdmin(users.get(0).getName());
+            User admin = users.get(0);
+            group.setAdmin(admin);
             group.setName(users.get(1).getName());
         } else {
             customGroupCount++;
             group.setName("Group " + customGroupCount);
-            group.setAdmin(users.get(0).getName());
+            User admin = users.get(0);
+            group.setAdmin(admin);
+
         }
         groupUserMap.put(group.getName(), group);
         return group;
@@ -140,7 +143,7 @@ public class WhatsappRepository {
         return groupMessageMap.get(group).size();
     }
 
-    public void changeAdmin(User approver, String user, Group group) throws Exception {
+    public void changeAdmin(User approver, User user, Group group) throws Exception {
         if (!groupUserMap.containsValue(group)) {
             throw new Exception("Group does not exist");
         }
