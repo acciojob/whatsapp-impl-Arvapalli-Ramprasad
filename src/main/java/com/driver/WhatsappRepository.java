@@ -138,17 +138,47 @@ public class WhatsappRepository {
         return messageId;
     }
 
+//    public int sendMessage(Message message, User sender, Group group) throws Exception {
+//        if (!groupUserMap.containsValue(group)) {
+//            throw new Exception("Group does not exist");
+//        }
+//        if (!group.getName().contains(sender.getName())){
+//            throw new Exception("You are not allowed to send message");
+//        }
+//        List<Message> messages = groupMessageMap.getOrDefault(group, new ArrayList<>());
+//        messages.add(message);
+//        groupMessageMap.put(group, messages);
+//        return groupMessageMap.get(group).size();
+//    }
+
     public int sendMessage(Message message, User sender, Group group) throws Exception {
+        // Check if the group exists in the groupUserMap
         if (!groupUserMap.containsValue(group)) {
             throw new Exception("Group does not exist");
         }
-        if (!group.getName().contains(sender.getName())){
+
+        // Verify that the sender is a member of the specified group
+        if (!isUserMemberOfGroup(sender, group)) {
             throw new Exception("You are not allowed to send message");
         }
+
+        // Retrieve the list of messages for the specified group or initialize an empty list
         List<Message> messages = groupMessageMap.getOrDefault(group, new ArrayList<>());
+
+        // Add the new message to the list of messages for the group
         messages.add(message);
+
+        // Update the groupMessageMap with the updated list of messages for the group
         groupMessageMap.put(group, messages);
-        return groupMessageMap.get(group).size();
+
+        // Return the size of the list of messages for the group
+        return messages.size();
+    }
+
+    // Method to check if a user is a member of a group
+    private boolean isUserMemberOfGroup(User user, Group group) {
+        List<User> members = group.getParticipants();
+        return members != null && members.contains(user);
     }
 
     public void changeAdmin(User approver, User user, Group group) throws Exception {
