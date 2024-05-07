@@ -4,14 +4,14 @@ import java.util.List;
 
 public class Group {
     private String name;
-    private int numberOfParticipants;
+//    private int numberOfParticipants;
     private String admin;
     private List<User> participants;
 
-    public Group(String name, int numberOfParticipants) {
-        this.name = name;
-        this.numberOfParticipants = numberOfParticipants;
-    }
+//    public Group(String name, int numberOfParticipants) {
+//        this.name = name;
+//        this.numberOfParticipants = numberOfParticipants;
+//    }
 
 //    public Group(List<User> users) {
 //        if (users != null) {
@@ -61,9 +61,9 @@ public class Group {
         return participants;
     }
 
-//    public void setParticipants(List<User> participants) {
-//        this.participants = participants;
-//    }
+    public void setParticipants(List<User> participants) {
+        this.participants = participants;
+    }
 
     public void changeAdmin(User approver, String user) throws Exception {
         if (!approver.equals(this.admin)) {
