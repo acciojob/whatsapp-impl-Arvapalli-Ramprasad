@@ -95,22 +95,28 @@ public class WhatsappRepository {
     }
 
     public String createUser(String name, String mobile) throws Exception {
-        if (userMap.containsKey(mobile)) {
+//        System.out.println(mobile);
+        if(userMobile.contains(mobile)) {
             throw new Exception("User already exists");
         }
-        User user = new User(name, mobile);
+        User user = new User(name,mobile);
+//        user.setMobile(mobile);
+//        user.setName(name);
         userMap.put(mobile, user);
+        userMobile.add(mobile);
+
         return "SUCCESS";
     }
 
     public Group createGroup(List<User> users) {
         Group group = new Group(users);
-        if (users.size() == 2) {
-            User admin = users.get(0);
-            group.setName(admin.getName());
+        if (users.size()==2) {
+            group.setAdmin(users.get(0).getName());
+            group.setName(users.get(1).getName());
         } else {
             customGroupCount++;
             group.setName("Group " + customGroupCount);
+            group.setAdmin(users.get(0).getName());
         }
         groupUserMap.put(group.getName(), group);
         return group;
@@ -118,18 +124,10 @@ public class WhatsappRepository {
 
     public int createMessage(String content) {
         messageId++;
-        // Save message to group's message list
-        Message message = new Message(messageId, content);
-        Group defaultGroup = groupUserMap.getOrDefault("Default Group", null);
-        if (defaultGroup != null) {
-            List<Message> messages = groupMessageMap.getOrDefault(defaultGroup, new ArrayList<>());
-            messages.add(message);
-            groupMessageMap.put(defaultGroup, messages);
-        }
         return messageId;
     }
 
-    public void sendMessage(Message message, User sender, Group group) throws Exception {
+    public int sendMessage(Message message, User sender, Group group) throws Exception {
         if (!groupUserMap.containsValue(group)) {
             throw new Exception("Group does not exist");
         }
@@ -139,9 +137,10 @@ public class WhatsappRepository {
         List<Message> messages = groupMessageMap.getOrDefault(group, new ArrayList<>());
         messages.add(message);
         groupMessageMap.put(group, messages);
+        return groupMessageMap.get(group).size();
     }
 
-    public void changeAdmin(User approver, User user, Group group) throws Exception {
+    public void changeAdmin(User approver, String user, Group group) throws Exception {
         if (!groupUserMap.containsValue(group)) {
             throw new Exception("Group does not exist");
         }

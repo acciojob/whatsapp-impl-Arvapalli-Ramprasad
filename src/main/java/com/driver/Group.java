@@ -5,7 +5,7 @@ import java.util.List;
 public class Group {
     private String name;
     private int numberOfParticipants;
-    private User admin;
+    private String admin;
     private List<User> participants;
 
     public Group(String name, int numberOfParticipants) {
@@ -13,18 +13,23 @@ public class Group {
         this.numberOfParticipants = numberOfParticipants;
     }
 
-    public Group(List<User> users) {
-        if (users != null) {
-            this.participants = users;
-            this.numberOfParticipants = users.size();
-            if (numberOfParticipants == 2) {
-                // If there are only 2 users, set the group name as the name of the second user
-                this.name = users.get(1).getName();
-            } else {
-                // If there are more than 2 users, set the group name as "Group #count"
-                this.name = "Group " + WhatsappRepository.getCustomGroupCount();
-            }
-        }
+//    public Group(List<User> users) {
+//        if (users != null) {
+//            this.participants = users;
+//            this.numberOfParticipants = users.size();
+//            if (numberOfParticipants == 2) {
+//                // If there are only 2 users, set the group name as the name of the second user
+//                this.name = users.get(1).getName();
+//            } else {
+//                // If there are more than 2 users, set the group name as "Group #count"
+//                this.name = "Group " + WhatsappRepository.getCustomGroupCount();
+//            }
+//        }
+//    }
+
+
+    public Group(List<User> participants) {
+        this.participants = participants;
     }
 
     public String getName() {
@@ -35,19 +40,20 @@ public class Group {
         this.name = name;
     }
 
-    public int getNumberOfParticipants() {
-        return numberOfParticipants;
-    }
+//    public int getNumberOfParticipants() {
+//        return numberOfParticipants;
+//    }
+//
+//    public void setNumberOfParticipants(int numberOfParticipants) {
+//        this.numberOfParticipants = numberOfParticipants;
+//    }
 
-    public void setNumberOfParticipants(int numberOfParticipants) {
-        this.numberOfParticipants = numberOfParticipants;
-    }
 
-    public User getAdmin() {
+    public String getAdmin() {
         return admin;
     }
 
-    public void setAdmin(User admin) {
+    public void setAdmin(String admin) {
         this.admin = admin;
     }
 
@@ -55,11 +61,11 @@ public class Group {
         return participants;
     }
 
-    public void setParticipants(List<User> participants) {
-        this.participants = participants;
-    }
+//    public void setParticipants(List<User> participants) {
+//        this.participants = participants;
+//    }
 
-    public void changeAdmin(User approver, User user) throws Exception {
+    public void changeAdmin(User approver, String user) throws Exception {
         if (!approver.equals(this.admin)) {
             throw new Exception("Approver does not have rights");
         }
