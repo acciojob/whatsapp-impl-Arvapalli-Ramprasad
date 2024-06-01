@@ -100,6 +100,7 @@ public class WhatsappRepository {
             throw new Exception("User already exists");
         }
         User user = new User(name,mobile);
+        //hello
 //        user.setMobile(mobile);
 //        user.setName(name);
         userMap.put(mobile, user);
