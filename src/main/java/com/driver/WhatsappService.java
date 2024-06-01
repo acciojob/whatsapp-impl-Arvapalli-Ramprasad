@@ -36,13 +36,13 @@ public class WhatsappService {
         return whatsappRepository.sendMessage(message,sender,group);
     }
     //
-//    public String changeAdmin(User approver, User user, Group group) throws Exception{
-//        //Change the admin of the group to "user".
-//        //Throw "Group does not exist" if the mentioned group does not exist
-//        //Throw "Approver does not have rights" if the approver is not the current admin of the group
-//        //Throw "User is not a participant" if the user is not a part of the group
-//        return "SUCCESS";
-//    }
+    public String changeAdmin(User approver, User user, Group group) throws Exception{
+        //Change the admin of the group to "user".
+        //Throw "Group does not exist" if the mentioned group does not exist
+        //Throw "Approver does not have rights" if the approver is not the current admin of the group
+        //Throw "User is not a participant" if the user is not a part of the group
+        return "SUCCESS";
+    }
 //
 //    public int removeUser(User user) throws Exception{
 //        //If user is not found in any group, throw "User not found" exception
