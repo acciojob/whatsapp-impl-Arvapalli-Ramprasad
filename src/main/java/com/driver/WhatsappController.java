@@ -47,12 +47,14 @@ public class WhatsappController {
         //For example: Consider userList1 = {Alex, Bob, Charlie}, userList2 = {Dan, Evan}, userList3 = {Felix, Graham, Hugh}.
         //If createGroup is called for these userLists in the same order, their group names would be "Group 1", "Evan", and "Group 2" respectively.
 
-        try {
-            Group group = whatsappService.createGroup(users);
-            return group;
-        } catch (Exception e) {
-            return null;
-        }
+//        try {
+//            Group group = whatsappService.createGroup(users);
+//            return group;
+//        } catch (Exception e) {
+//            return null;
+//        }
+
+        return null;
 
 //        return whatsappService.createGroup(users);
     }
@@ -61,8 +63,12 @@ public class WhatsappController {
     public int  createMessage(@RequestParam String content){
         // The 'i^th' created message has message id 'i'.
         // Return the message id.
-        int messageId = whatsappService.createMessage(content);
-        return messageId;
+
+
+//        int messageId = whatsappService.createMessage(content);
+//        return messageId;
+
+        return 0;
 
 //        return whatsappService.createMessage(content);
     }
@@ -72,12 +78,16 @@ public class WhatsappController {
         //Throw "Group does not exist" if the mentioned group does not exist
         //Throw "You are not allowed to send message" if the sender is not a member of the group
         //If the message is sent successfully, return the final number of messages in that group.
-        try {
-            // Implement sending a message
-            return whatsappService.sendMessage(message,sender,group); // Placeholder response
-        } catch (Exception e) {
-            throw new Exception(e.getMessage());
-        }
+
+
+//        try {
+//            // Implement sending a message
+//            return whatsappService.sendMessage(message,sender,group); // Placeholder response
+//        } catch (Exception e) {
+//            throw new Exception(e.getMessage());
+//        }
+
+        return 0;
 
 
 //        return whatsappService.sendMessage(message, sender, group);

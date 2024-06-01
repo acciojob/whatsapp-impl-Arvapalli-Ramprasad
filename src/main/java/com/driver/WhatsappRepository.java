@@ -109,32 +109,38 @@ public class WhatsappRepository {
     }
 
     public Group createGroup(List<User> users) {
-        if (users == null || users.isEmpty()) {
-            throw new IllegalArgumentException("User list cannot be null or empty");
-        }
+//        if (users == null || users.isEmpty()) {
+//            throw new IllegalArgumentException("User list cannot be null or empty");
+//        }
+//
+//        // Validate minimum number of users required
+//        if (users.size() < 2) {
+//            throw new IllegalArgumentException("At least two users are required to create a group");
+//        }
+//        Group group = new Group(users);
+//        User admin = users.get(0);
+//        if (users.size()==2) {
+//            group.setAdmin(admin);
+//            group.setName(users.get(1).getName());
+//        } else {
+//            customGroupCount++;
+//            group.setName("Group " + customGroupCount);
+//            group.setAdmin(admin);
+//
+//        }
+//        groupUserMap.put(group.getName(), group);
+//        return group;
 
-        // Validate minimum number of users required
-        if (users.size() < 2) {
-            throw new IllegalArgumentException("At least two users are required to create a group");
-        }
-        Group group = new Group(users);
-        User admin = users.get(0);
-        if (users.size()==2) {
-            group.setAdmin(admin);
-            group.setName(users.get(1).getName());
-        } else {
-            customGroupCount++;
-            group.setName("Group " + customGroupCount);
-            group.setAdmin(admin);
-
-        }
-        groupUserMap.put(group.getName(), group);
-        return group;
+        return null;
     }
 
     public int createMessage(String content) {
-        messageId++;
-        return messageId;
+
+
+//        messageId++;
+//        return messageId;
+
+        return 0;
     }
 
 //    public int sendMessage(Message message, User sender, Group group) throws Exception {
@@ -152,32 +158,38 @@ public class WhatsappRepository {
 
     public int sendMessage(Message message, User sender, Group group) throws Exception {
         // Check if the group exists in the groupUserMap
-        if (!groupUserMap.containsValue(group)) {
-            throw new Exception("Group does not exist");
-        }
+//        if (!groupUserMap.containsValue(group)) {
+//            throw new Exception("Group does not exist");
+//        }
+//
+//        // Verify that the sender is a member of the specified group
+//        if (!isUserMemberOfGroup(sender, group)) {
+//            throw new Exception("You are not allowed to send message");
+//        }
+//
+//        // Retrieve the list of messages for the specified group or initialize an empty list
+//        List<Message> messages = groupMessageMap.getOrDefault(group, new ArrayList<>());
+//
+//        // Add the new message to the list of messages for the group
+//        messages.add(message);
+//
+//        // Update the groupMessageMap with the updated list of messages for the group
+//        groupMessageMap.put(group, messages);
+//
+//        // Return the size of the list of messages for the group
+//        return messages.size();
 
-        // Verify that the sender is a member of the specified group
-        if (!isUserMemberOfGroup(sender, group)) {
-            throw new Exception("You are not allowed to send message");
-        }
-
-        // Retrieve the list of messages for the specified group or initialize an empty list
-        List<Message> messages = groupMessageMap.getOrDefault(group, new ArrayList<>());
-
-        // Add the new message to the list of messages for the group
-        messages.add(message);
-
-        // Update the groupMessageMap with the updated list of messages for the group
-        groupMessageMap.put(group, messages);
-
-        // Return the size of the list of messages for the group
-        return messages.size();
+        return 0;
     }
 
     // Method to check if a user is a member of a group
     private boolean isUserMemberOfGroup(User user, Group group) {
-        List<User> members = group.getParticipants();
-        return members != null && members.contains(user);
+
+
+//        List<User> members = group.getParticipants();
+//        return members != null && members.contains(user);
+
+        return false;
     }
 
 //    public void changeAdmin(User approver, User user, Group group) throws Exception {
