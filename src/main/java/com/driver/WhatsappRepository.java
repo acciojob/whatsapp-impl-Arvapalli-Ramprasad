@@ -180,17 +180,17 @@ public class WhatsappRepository {
         return members != null && members.contains(user);
     }
 
-    public void changeAdmin(User approver, User user, Group group) throws Exception {
-        if (!groupUserMap.containsValue(group)) {
-            throw new Exception("Group does not exist");
-        }
-        if (!group.getAdmin().equals(approver)) {
-            throw new Exception("Approver does not have rights");
-        }
-        if (!group.getParticipants().contains(user)) {
-            throw new Exception("User is not a participant");
-        }
-        group.setAdmin(user);
-    }
+//    public void changeAdmin(User approver, User user, Group group) throws Exception {
+//        if (!groupUserMap.containsValue(group)) {
+//            throw new Exception("Group does not exist");
+//        }
+//        if (!group.getAdmin().equals(approver)) {
+//            throw new Exception("Approver does not have rights");
+//        }
+//        if (!group.getParticipants().contains(user)) {
+//            throw new Exception("User is not a participant");
+//        }
+//        group.setAdmin(user);
+//    }
 
 }
