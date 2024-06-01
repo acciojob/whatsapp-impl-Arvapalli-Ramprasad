@@ -43,6 +43,7 @@ public class WhatsappService {
         //Throw "User is not a participant" if the user is not a part of the group
         return "SUCCESS";
     }
+//    /ujwehuha
 //
 //    public int removeUser(User user) throws Exception{
 //        //If user is not found in any group, throw "User not found" exception
