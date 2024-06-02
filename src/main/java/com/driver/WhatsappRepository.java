@@ -183,7 +183,7 @@ public class WhatsappRepository {
 
 
         // Verify that the sender is a member of the specified group
-        if (groupUserMap.containsKey(group) && !groupUserMap.containsValue(sender)) {
+        if (!groupUserMap.get(group).contains(sender)) {
             throw new Exception("You are not allowed to send message");
         }
 
