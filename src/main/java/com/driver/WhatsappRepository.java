@@ -177,7 +177,7 @@ public class WhatsappRepository {
 
     public int sendMessage(Message message, User sender, Group group) throws Exception {
         // Check if the group exists in the groupUserMap
-        if (!groupUserMap.containsValue(group)) {
+        if (!groupUserMap.containsKey(group)) {
             throw new Exception("Group does not exist");
         }
 
